@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        Network.getCovidStatus(pageNo: 1, numberOfRows: 10, startCreateDt: 20200310, endCreateDt: 20200315) { (covid) in
+            guard let result = covid else {return}
+            
+            print(result.itemList[1])
+        }
     }
+    
 
 
 }
