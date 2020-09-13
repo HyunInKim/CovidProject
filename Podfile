@@ -9,5 +9,6 @@ target 'Covid-19' do
   
   pod 'Alamofire', '~> 4.4'
   pod 'SwiftyXMLParser'
+  pod 'FSCalendar'
 
 end

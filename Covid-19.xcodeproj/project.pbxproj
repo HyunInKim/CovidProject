@@ -16,6 +16,7 @@
 		1FC966AA250CECAD00095EA7 /* Covid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC966A9250CECAD00095EA7 /* Covid.swift */; };
 		1FC966AC250CED7100095EA7 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC966AB250CED7100095EA7 /* Global.swift */; };
 		1FC966AE250CEDB200095EA7 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC966AD250CEDB200095EA7 /* Network.swift */; };
+		1FC966B0250CF86200095EA7 /* CalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC966AF250CF86200095EA7 /* CalenderViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		1FC966A9250CECAD00095EA7 /* Covid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Covid.swift; sourceTree = "<group>"; };
 		1FC966AB250CED7100095EA7 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		1FC966AD250CEDB200095EA7 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		1FC966AF250CF86200095EA7 /* CalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewController.swift; sourceTree = "<group>"; };
 		2BC833DFA9ABB151B6C344AE /* Pods-Covid-19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid-19.release.xcconfig"; path = "Target Support Files/Pods-Covid-19/Pods-Covid-19.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,6 +78,7 @@
 				1F92AAA9250BE771006B2692 /* Assets.xcassets */,
 				1F92AAAB250BE771006B2692 /* LaunchScreen.storyboard */,
 				1F92AAAE250BE771006B2692 /* Info.plist */,
+				1FC966AF250CF86200095EA7 /* CalenderViewController.swift */,
 			);
 			path = "Covid-19";
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FC966B0250CF86200095EA7 /* CalenderViewController.swift in Sources */,
 				1F92AAA5250BE770006B2692 /* ViewController.swift in Sources */,
 				1F92AAA1250BE770006B2692 /* AppDelegate.swift in Sources */,
 				1FC966AE250CEDB200095EA7 /* Network.swift in Sources */,
