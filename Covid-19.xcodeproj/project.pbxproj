@@ -74,11 +74,11 @@
 				1FC966AD250CEDB200095EA7 /* Network.swift */,
 				1FC966A9250CECAD00095EA7 /* Covid.swift */,
 				1FC966AB250CED7100095EA7 /* Global.swift */,
+				1FC966AF250CF86200095EA7 /* CalenderViewController.swift */,
 				1F92AAA6250BE770006B2692 /* Main.storyboard */,
 				1F92AAA9250BE771006B2692 /* Assets.xcassets */,
 				1F92AAAB250BE771006B2692 /* LaunchScreen.storyboard */,
 				1F92AAAE250BE771006B2692 /* Info.plist */,
-				1FC966AF250CF86200095EA7 /* CalenderViewController.swift */,
 			);
 			path = "Covid-19";
 			sourceTree = "<group>";

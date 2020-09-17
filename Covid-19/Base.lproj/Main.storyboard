@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KIf-3c-pBL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KIf-3c-pBL">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -11,7 +11,6 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Covid_19" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -22,7 +21,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="조회"/>
                                 <connections>
-                                    <segue destination="fMw-rD-flo" kind="presentation" id="Ehz-PG-jqh"/>
+                                    <segue destination="fMw-rD-flo" kind="presentation" id="Hoc-kB-K4e"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -31,6 +30,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ijd-RQ-229"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1042.0289855072465" y="119.86607142857142"/>
         </scene>
@@ -61,30 +61,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJk-z2-83u" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="733"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="fMw-rD-flo" id="nlH-CJ-A6Q"/>
                                     <outlet property="delegate" destination="fMw-rD-flo" id="v6v-Zu-LV7"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEg-H1-eDh">
+                                <rect key="frame" x="15" y="743" width="384" height="50"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="x4t-JE-Ulg"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="dateSelectButtonOnclick:" destination="fMw-rD-flo" eventType="touchUpInside" id="fgO-oO-kfe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="gJk-z2-83u" firstAttribute="leading" secondItem="cie-xh-1k1" secondAttribute="leading" id="2sP-WF-URX"/>
-                            <constraint firstItem="gJk-z2-83u" firstAttribute="top" secondItem="cie-xh-1k1" secondAttribute="top" id="Mfu-fM-hA3"/>
-                            <constraint firstItem="cie-xh-1k1" firstAttribute="bottom" secondItem="gJk-z2-83u" secondAttribute="bottom" id="mYo-wl-wcd"/>
-                            <constraint firstItem="cie-xh-1k1" firstAttribute="trailing" secondItem="gJk-z2-83u" secondAttribute="trailing" id="qBu-Cb-zW4"/>
+                            <constraint firstItem="GEg-H1-eDh" firstAttribute="leading" secondItem="cie-xh-1k1" secondAttribute="leading" constant="15" id="4Tt-oN-xZ4"/>
+                            <constraint firstItem="gJk-z2-83u" firstAttribute="leading" secondItem="cie-xh-1k1" secondAttribute="leading" id="C32-Kk-rvZ"/>
+                            <constraint firstItem="gJk-z2-83u" firstAttribute="top" secondItem="cie-xh-1k1" secondAttribute="top" id="E9j-bP-4AJ"/>
+                            <constraint firstItem="GEg-H1-eDh" firstAttribute="top" secondItem="gJk-z2-83u" secondAttribute="bottom" constant="10" id="LuV-av-CP8"/>
+                            <constraint firstItem="gJk-z2-83u" firstAttribute="trailing" secondItem="cie-xh-1k1" secondAttribute="trailing" id="VQa-Vp-QDs"/>
+                            <constraint firstItem="cie-xh-1k1" firstAttribute="trailing" secondItem="GEg-H1-eDh" secondAttribute="trailing" constant="15" id="ZNl-oL-pUg"/>
+                            <constraint firstItem="cie-xh-1k1" firstAttribute="bottom" secondItem="GEg-H1-eDh" secondAttribute="bottom" constant="15" id="g1q-dE-a03"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cie-xh-1k1"/>
                     </view>
                     <connections>
                         <outlet property="calendarView" destination="gJk-z2-83u" id="Oeo-Zb-gfR"/>
+                        <outlet property="dateSelectButton" destination="GEg-H1-eDh" id="WnH-H0-eSX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1hX-zE-Mh6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1790" y="127"/>
+            <point key="canvasLocation" x="1789.8550724637682" y="126.5625"/>
         </scene>
     </scenes>
 </document>
