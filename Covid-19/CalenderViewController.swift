@@ -12,157 +12,111 @@ class CalenderViewController: UIViewController {
 
     @IBOutlet weak var calendarView: FSCalendar!
     @IBOutlet weak var dateSelectButton: UIButton!
-    
-    let today = NSDate()
-    let todays = Date()
-    let dateFormatter = DateFormatter()
-    let calendar = Calendar.current
+    private let today = Date()
     private var firstDate: Date?
     private var lastDate: Date?
     private var datesRange: [Date]?
-    var somedays : Array = [String]()
-    
+    private var global = Global()
+    private var VC: ViewController?
+  
     fileprivate let gregorian: Calendar = Calendar(identifier: .gregorian)
-    fileprivate lazy var dateFormatter1: DateFormatter = {
+    fileprivate lazy var dateFormatter: DateFormatter = {
            let formatter = DateFormatter()
            formatter.dateFormat = "yyyy-MM-dd"
            return formatter
     }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         calendarView.allowsMultipleSelection = true
         calendarView.swipeToChooseGesture.isEnabled = true
-        
         calendarView.delegate = self
         calendarView.dataSource = self
-        
-        // Do any additional setup after loading the view.
         calendarView.today = nil
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-        //setDefaultDate()
-        
-       
-        
+        setDefaultDates(today: today as Date, decrease: 7)
     }
     
-    private func setDefaultDate() {
-        dateFormatter.dateFormat = "YYYY년 MM월 dd일"
-        dateFormatter.locale = Locale(identifier: "ko_kr")
-        let todayDate = dateFormatter.string(from: today as Date)
-        let beforeDayCurrent = calendar.date(byAdding: .day, value: -7, to: today as Date)
-        let beforeDay = dateFormatter.string(from: beforeDayCurrent!)
-        dateSelectButton.setTitle("\(beforeDay) - \(todayDate) " , for: .normal)
-      
-        
+    private func setDefaultDates(today: Date, decrease: Int) {
+        var tempDate = today
+        var todayArray : Array = [Date]()
+        for i in 0..<decrease {
+            if i == 0 {
+                todayArray.append(tempDate)
+                calendarView.select(tempDate)
+            }
+            tempDate = Calendar.current.date(byAdding: .day, value: -1, to: tempDate)!
+            todayArray.append(tempDate)
+            calendarView.select(tempDate)
+        }
+        dateSelectButton.setTitle("\(dateFormatter.string(from: todayArray.last!)) ~ \(dateFormatter.string(from: todayArray.first!))",for: .normal)
     }
-    
-    func datesRange(from: Date, to: Date) -> [Date] {
-        // in case of the "from" date is more than "to" date,
-        // it should returns an empty array:
+        
+    private func datesRange(from: Date, to: Date) -> [Date] {
+        
         if from > to { return [Date]() }
-
         var tempDate = from
         var array = [tempDate]
-
         while tempDate < to {
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate)!
             array.append(tempDate)
         }
-
         return array
     }
 
     
     @IBAction func dateSelectButtonOnclick(_ sender: Any) {
-        
+        VC?.startDateLabel.text = dateSelectButton.currentTitle!
     }
     
-  
-    
-    
-
+    private func initDate(calendar: FSCalendar, date: Date) {
+        for selectedDate in calendar.selectedDates {
+            calendar.deselect(selectedDate)
+        }
+        firstDate = date
+        lastDate = nil
+        datesRange = []
+        calendar.select(date)
+        dateSelectButton.setTitle(dateFormatter.string(from: date), for: .normal)
+    }
 }
 extension CalenderViewController: FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
-//    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-//        somedays = ["2020-09-16",
-//                    "2020-09-17"]
-//        let dateString: String = dateFormatter1.string(from: date)
-//        if self.somedays.contains(dateString){
-//            return UIColor.green
-//        }else {
-//            return nil
-//        }
-//    }
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-        somedays = ["2020-09-16",
-                    "2020-09-17"]
-        let dateString: String = dateFormatter1.string(from: date)
-        if self.somedays.contains(dateString){
-            return UIColor.green
-        }else {
-            return nil
-        }
-    }
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        // nothing selected:
-        if firstDate == nil {
+        if firstDate == nil {   // 첫날 선택
             firstDate = date
             datesRange = [firstDate!]
+            //  초기에 선택되었던 날 삭제
+            for selectedDate in calendar.selectedDates {
+                calendar.deselect(selectedDate)
+            }
+            calendar.select(date)
+            dateSelectButton.setTitle(dateFormatter.string(from: date), for: .normal)
             return
-        }
-
-        // only first date is selected:
-        if firstDate != nil && lastDate == nil {
-            // handle the case of if the last date is less than the first date:
+            
+        } else if firstDate != nil && lastDate == nil {     // 두쨋날 선택
             if date <= firstDate! {
                 calendar.deselect(firstDate!)
                 firstDate = date
                 datesRange = [firstDate!]
-
-                print("datesRange contains: \(datesRange!)")
-
+                dateSelectButton.setTitle(dateFormatter.string(from: date), for: .normal)
                 return
             }
-
             let range = datesRange(from: firstDate!, to: date)
-
             lastDate = range.last
-
-            for d in range {
-                calendar.select(d)
+            for i in range {
+                calendar.select(i)
             }
-
             datesRange = range
-
-            print("datesRange contains: \(datesRange!)")
-
+            dateSelectButton.setTitle("\(dateFormatter.string(from: (datesRange?.first)!)) ~ \(dateFormatter.string(from: (datesRange?.last)!))", for: .normal)
             return
-        }
-
-        // both are selected:
-        if firstDate != nil && lastDate != nil {
-            for d in calendar.selectedDates {
-                calendar.deselect(d)
-            }
-
-            lastDate = nil
-            firstDate = nil
-
-            datesRange = []
-
-            print("datesRange contains: \(datesRange!)")
+            
+        } else if firstDate != nil && lastDate != nil {     // 새로 선택할 경우
+            initDate(calendar: calendar, date: date)
         }
     }
 
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        // both are selected:
-        if firstDate != nil && lastDate != nil {
-            for d in calendar.selectedDates {
-                calendar.deselect(d)
-            }
-            lastDate = nil
-            firstDate = nil
-            datesRange = []
-        }
+        // 선택된 날짜를 선택할 경우 초기화
+        initDate(calendar: calendar, date: date)
     }
 }

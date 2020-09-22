@@ -17,4 +17,5 @@ class Global {
             return _serviceKey
         }
     }
+    public var todayRange: Array = [String]()
 }

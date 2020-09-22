@@ -11,6 +11,10 @@ import Alamofire
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var startDateLabel: UILabel!
+    @IBOutlet weak var endDateLabel: UILabel!
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Network.getCovidStatus(pageNo: 1, numberOfRows: 10, startCreateDt: 20200310, endCreateDt: 20200315) { (covid) in
@@ -20,6 +24,12 @@ class ViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
+    
+   
 
 
 }
