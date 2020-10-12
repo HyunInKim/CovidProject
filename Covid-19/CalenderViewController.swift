@@ -8,6 +8,10 @@
 
 import UIKit
 import FSCalendar
+
+protocol SendDataDelegate {
+    func sendDateData(startDate: Date?, endDate: Date?)
+}
 class CalenderViewController: UIViewController {
 
     @IBOutlet weak var calendarView: FSCalendar!
@@ -16,16 +20,16 @@ class CalenderViewController: UIViewController {
     private var firstDate: Date?
     private var lastDate: Date?
     private var datesRange: [Date]?
-    private var global = Global()
-    private var VC: ViewController?
-  
+    
+    
+    var delegate: SendDataDelegate?
+    
     fileprivate let gregorian: Calendar = Calendar(identifier: .gregorian)
     fileprivate lazy var dateFormatter: DateFormatter = {
            let formatter = DateFormatter()
            formatter.dateFormat = "yyyy-MM-dd"
            return formatter
     }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +38,7 @@ class CalenderViewController: UIViewController {
         calendarView.delegate = self
         calendarView.dataSource = self
         calendarView.today = nil
-        setDefaultDates(today: today as Date, decrease: 7)
+        setDefaultDates(today: today as Date, decrease: 7)  // 현재 날짜에서 일주일 전
     }
     
     private func setDefaultDates(today: Date, decrease: Int) {
@@ -64,11 +68,6 @@ class CalenderViewController: UIViewController {
         return array
     }
 
-    
-    @IBAction func dateSelectButtonOnclick(_ sender: Any) {
-        VC?.startDateLabel.text = dateSelectButton.currentTitle!
-    }
-    
     private func initDate(calendar: FSCalendar, date: Date) {
         for selectedDate in calendar.selectedDates {
             calendar.deselect(selectedDate)
@@ -78,6 +77,24 @@ class CalenderViewController: UIViewController {
         datesRange = []
         calendar.select(date)
         dateSelectButton.setTitle(dateFormatter.string(from: date), for: .normal)
+    }
+    
+    @IBAction func dateSelectButtonOnclick(_ sender: Any) {
+        if lastDate == nil {
+            lastDate = firstDate
+        }
+        
+        delegate?.sendDateData(startDate: firstDate, endDate: lastDate)
+        dateFormatter.dateFormat = "yyyyMMdd"
+        Network.getCovidStatus(pageNo: 1,
+                               numberOfRows: 10,
+                               startCreateDt: dateFormatter.string(from: firstDate!),
+                               endCreateDt: dateFormatter.string(from: lastDate!)) { (covid) in
+            guard let result = covid else {return}
+            print(result.itemList)
+            
+        }
+        dismiss(animated: true, completion: nil)
     }
 }
 extension CalenderViewController: FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
