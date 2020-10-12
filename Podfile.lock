@@ -1,24 +1,28 @@
 PODS:
   - Alamofire (4.9.1)
   - FSCalendar (2.8.1)
+  - ScrollableGraphView (4.0.6)
   - SwiftyXMLParser (5.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
   - FSCalendar
+  - ScrollableGraphView
   - SwiftyXMLParser
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - FSCalendar
+    - ScrollableGraphView
     - SwiftyXMLParser
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
+  ScrollableGraphView: 4af35d4ea9ecdec665d34a74da51da161ddff8ac
   SwiftyXMLParser: 5ebb8793192f403fa8cc691045143906122a7a75
 
-PODFILE CHECKSUM: 1424121fc737cf1ea2ad9cff37b78c3831c9dc6e
+PODFILE CHECKSUM: dbe2e4f0d96ca88f02d45e0cdd40081819b9d0ed
 
 COCOAPODS: 1.8.4
