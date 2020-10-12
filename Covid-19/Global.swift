@@ -9,13 +9,18 @@
 import Foundation
 
 class Global {
+    // 싱글톤
+    var shared = Global()
+    private init() {}
     
-    private var _serviceKey: String = "V0gkf%2Bht8OFhiv%2Bd75Da0vhpyv15AZcnswUwqdRjRL%2Fdy1yhxWVdMeLc7x%2BaOvon087McqgXReWjBZOWmOuwnQ%3D%3D"
+    private static let today = Date()
+    static var todayArray : Array = [Date]()
     
-    public var serviceKey: String {
-        get {
-            return _serviceKey
+    public static func getTodayDate(decrease: Int = 7) {
+        var tempDate = today
+        for _ in 0..<decrease {
+            tempDate = Calendar.current.date(byAdding: .day, value: -1, to: tempDate)!
+            todayArray.append(tempDate)
         }
     }
-    public var todayRange: Array = [String]()
 }
