@@ -8,29 +8,37 @@
 
 import UIKit
 import Alamofire
-
-class ViewController: UIViewController {
-
+import ScrollableGraphView
+class ViewController: UIViewController, SendDataDelegate {
+    
     @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var endDateLabel: UILabel!
-   
+    
+    @IBOutlet weak var graphView: ScrollableGraphView!
+    
+    fileprivate lazy var dateFormatter: DateFormatter = {
+           let formatter = DateFormatter()
+           formatter.dateFormat = "yyyy-MM-dd"
+           return formatter
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Network.getCovidStatus(pageNo: 1, numberOfRows: 10, startCreateDt: 20200310, endCreateDt: 20200315) { (covid) in
-            guard let result = covid else {return}
-            
-            print(result.itemList[1])
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        super.viewWillAppear(animated)
     }
-    
-    
-   
 
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "calendarShow" {
+            let viewController: CalenderViewController = segue.destination as! CalenderViewController
+            viewController.delegate = self
+        }
+    }
+    internal func sendDateData(startDate: Date?, endDate: Date?) {
+        startDateLabel.text = dateFormatter.string(from: startDate!)
+        endDateLabel.text = dateFormatter.string(from: endDate!)
+    }
 }
 
